@@ -43,6 +43,7 @@ chart_fig.update_layout(title='Temperature vs. Altitude',
                    yaxis_title='Altitude (Meter)')
 
 app = dash.Dash()
+server = app.server
 app.layout = html.Div([
     html.Div([
         dcc.DatePickerSingle(
