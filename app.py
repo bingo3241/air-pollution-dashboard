@@ -38,7 +38,7 @@ for i in range(0,95,5):
 #     alt.append(doc['altitude'])
 #     temp.append(float(doc['temp']))
 
-chart_data = go.Scatter(x=temp, y=alt, mode='markers')
+chart_data = go.Scatter(x=temp, y=alt, line_shape='spline')
 chart_fig = go.Figure(
     data=[chart_data],
 )
@@ -93,7 +93,7 @@ def update_output(date):
     #     new_alt.append(doc['altitude'])
     #     new_temp.append(float(doc['temp']))
 
-    chart_data = go.Scatter(x=new_temp, y=new_alt, mode='markers')
+    chart_data = go.Scatter(x=new_temp, y=new_alt, line_shape='spline')
     chart_fig = go.Figure(
         data=[chart_data],
     )
