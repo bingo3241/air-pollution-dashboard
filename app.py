@@ -26,7 +26,7 @@ alt = []
 for i in range(0,95,5):
     alt.append(i)
     alt_temp = []
-    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-0.5),'$lt' : str(i+5)}}):
+    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2.5),'$lt' : str(i+2.5)}}):
         alt_temp.append(float(doc['temp']))
     if(len(alt_temp) != 0):
         temp_average = sum(alt_temp) / len(alt_temp)
@@ -77,7 +77,7 @@ def update_output(date):
     for i in range(0,95,5):
         new_alt.append(i)
         alt_temp = []
-        for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-0.5),'$lt' : str(i+0.5)}}):
+        for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2.5),'$lt' : str(i+2.5)}}):
             alt_temp.append(float(doc['temp']))
         if(len(alt_temp) != 0):
             temp_average = sum(alt_temp) / len(alt_temp)
