@@ -20,23 +20,23 @@ date = dt(2020,4,22)
 dateStart = date.replace(hour=0, minute=0, second=0, microsecond=0)
 dateEnd = date.replace(hour=23, minute=59, second=59, microsecond=999999)
 
-temp= []
+temp = []
 alt = []
 
-# for i in range(0,95,5):
-#     alt.append(i)
-#     alt_temp = []
-#     for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2.5),'$lt' : str(i+2.5)}}):
-#         alt_temp.append(float(doc['temp']))
-#     if(len(alt_temp) != 0):
-#         temp_average = sum(alt_temp) / len(alt_temp)
-#     else:
-#         temp_average = None
-#     temp.append(temp_average)
+for i in range(0,95,5):
+    alt.append(i)
+    alt_temp = []
+    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2),'$lt' : str(i+2)}}):
+        alt_temp.append(float(doc['temp']))
+    if(len(alt_temp) != 0):
+        temp_average = sum(alt_temp) / len(alt_temp)
+    else:
+        temp_average = None
+    temp.append(temp_average)
 
-for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}}):
-    alt.append(doc['altitude'])
-    temp.append(float(doc['temp']))
+# for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}}):
+#     alt.append(doc['altitude'])
+#     temp.append(float(doc['temp']))
 
 chart_data = go.Scatter(x=temp, y=alt, mode='markers')
 chart_fig = go.Figure(
@@ -78,20 +78,20 @@ def update_output(date):
     new_temp = []
     new_alt = []
 
-    # for i in range(0,95,5):
-    #     new_alt.append(i)
-    #     alt_temp = []
-    #     for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2.5),'$lt' : str(i+2.5)}}):
-    #         alt_temp.append(float(doc['temp']))
-    #     if(len(alt_temp) != 0):
-    #         temp_average = sum(alt_temp) / len(alt_temp)
-    #     else:
-    #         temp_average = None
-    #     new_temp.append(temp_average)
+    for i in range(0,95,5):
+        new_alt.append(i)
+        alt_temp = []
+        for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2),'$lt' : str(i+2)}}):
+            alt_temp.append(float(doc['temp']))
+        if(len(alt_temp) != 0):
+            temp_average = sum(alt_temp) / len(alt_temp)
+        else:
+            temp_average = None
+        new_temp.append(temp_average)
 
-    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}}):
-        new_alt.append(doc['altitude'])
-        new_temp.append(float(doc['temp']))
+    # for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}}):
+    #     new_alt.append(doc['altitude'])
+    #     new_temp.append(float(doc['temp']))
 
     chart_data = go.Scatter(x=new_temp, y=new_alt, mode='markers')
     chart_fig = go.Figure(
