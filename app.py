@@ -16,7 +16,7 @@ client = MongoClient(os.environ['MONGODB_URI'])
 db = client.heroku_dq1wfl9j
 collection = db['proj-air-pollution']
 
-date = dt(2020,4,22)
+date = dt(2020,5,12)
 dateStart = date.replace(hour=0, minute=0, second=0, microsecond=0)
 dateEnd = date.replace(hour=23, minute=59, second=59, microsecond=999999)
 
@@ -26,7 +26,7 @@ alt = []
 for i in range(0,95,5):
     alt.append(i)
     alt_temp = []
-    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2),'$lt' : str(i+2)}}):
+    for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : float(i-2.5),'$lt' : float(i+2.5)}}):
         alt_temp.append(float(doc['temp']))
     if(len(alt_temp) != 0):
         temp_average = sum(alt_temp) / len(alt_temp)
@@ -53,6 +53,7 @@ app.layout = html.Div([
         dcc.DatePickerSingle(
             id = 'date-picker-single',
             date = dt(2020,4,22),
+            display_format='DD MMM YYYY',
             min_date_allowed=dt(2020, 4, 22),
             max_date_allowed=dt.today()
         ),
@@ -81,7 +82,7 @@ def update_output(date):
     for i in range(0,95,5):
         new_alt.append(i)
         alt_temp = []
-        for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : str(i-2),'$lt' : str(i+2)}}):
+        for doc in collection.find({"date" : {'$gte' : dateStart,'$lt' : dateEnd}, "altitude" : {'$gte' : float(i-2.5),'$lt' : float(i+2.5)}}):
             alt_temp.append(float(doc['temp']))
         if(len(alt_temp) != 0):
             temp_average = sum(alt_temp) / len(alt_temp)
